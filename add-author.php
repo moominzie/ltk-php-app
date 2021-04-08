@@ -18,12 +18,13 @@ $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-   $msg="Add author successfully";
-   header('location:add-author.php');
+  $url ="http://192.168.64.2/LTK/add-author.php";
+  echo "<script>alert('Create Author successfully'); window.location='$url'</script>";
 }
 else 
 {
-  $error="Something went wrong. Please try again";
+  $url ="http://192.168.64.2/LTK/add-author.php";
+  echo "<script>alert('Something went wrong. Please try again'); window.location='$url'</script>";
 }
 
 }
@@ -80,23 +81,10 @@ error:function (){}
 
 </script> 
 <style>
-    .errorWrap {
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: #fff;
-    border-left: 4px solid #dd3d36;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
-.succWrap{
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: #fff;
-    border-left: 4px solid #5cb85c;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
-    </style>
+  
+
+    
+</style>
 <body>
     <!------MENU SECTION START-->
     <?php include('includes/header.php');?>
@@ -108,13 +96,8 @@ error:function (){}
                 <h4 class="header-line" style="font-family: 'Prompt', sans-serif;">Add author</h4>
                 
                             </div>
-        </div>
-        
-         <!-- ALERT START -->
-         <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
- <!-- ALERT END -->
 
+        </div>
     <div class="panel panel-default" style="margin-left:20%; margin-right:20%">
         <div class="panel-heading"><b>FORM DATA</b></div>
         <div class="panel-body" style="">     

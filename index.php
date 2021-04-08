@@ -2,9 +2,6 @@
 session_start();
 error_reporting(0);
 include('includes/connection.php');
-
-
-
     ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -82,6 +79,8 @@ include('includes/connection.php');
                                             <th>สาเหตุ/ปัญหา</th>
                                             <th>การแก้ไข</th>
                                             <th>สรุปผล</th>
+                                            <th>รูปที่ 1 </th>
+                                            <th>รูปที่ 2 </th>
                                             <th>ผู้บันทึก </th>
                                             <th>วันที่ทำการบันทึก </th>    
                                             <th>หมายเหตุ </th>    
@@ -95,7 +94,7 @@ include('includes/connection.php');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php $sql = "SELECT file.Images1,file.Images2,file.DataId,file.AuthorId,tblauthor.AuthorName,corrective_maintenance.Problem,corrective_maintenance.Corrective,corrective_maintenance.Summary,tblauthor.RegDate,tblpower.PowerplantName,tblinitials.Initials,tblcm.Agency FROM file join tblauthor on file.AuthorId=tblauthor.id join corrective_maintenance on file.DataId=corrective_maintenance.id join tblpower on tblauthor.PowerId=tblpower.id join tblinitials on tblinitials.id=tblauthor.InitialsId join tblcm on tblcm.id=tblauthor.InitialsId order by file.id asc";
+<?php $sql = "SELECT file.Images1,file.Images2,file.DataId,file.AuthorId,tblauthor.AuthorName,corrective_maintenance.Problem,corrective_maintenance.Corrective,corrective_maintenance.Summary,tblauthor.RegDate,tblpower.PowerplantName,tblinitials.Initials,tblcm.Agency FROM file join tblauthor on file.AuthorId=tblauthor.id join corrective_maintenance on file.DataId=corrective_maintenance.id join tblpower on tblauthor.PowerId=tblpower.id join tblinitials on tblinitials.id=tblauthor.InitialsId join tblcm on tblcm.id=tblauthor.InitialsId order by file.id asc";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -112,6 +111,8 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->Problem);?></td>
                                             <td class="center"><?php echo htmlentities($result->Corrective);?></td>
                                             <td class="center"><?php echo htmlentities($result->Summary);?></td>
+                                            <td class="center"><img src="pic/cm_picture/<?php echo htmlentities($result->Images1);?>" width="80" height="100" style="border:solid 1px #000"></td>
+                                            <td class="center"><img src="pic/cm_picture/<?php echo htmlentities($result->Images2);?>" width="80" height="100" style="border:solid 1px #000"></td>
                                             <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
                                             <td class="center"><?php echo htmlentities($result->RegDate);?></td>
                                             <td><a href="index.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-times" style="color:#DC143C;"></i></a></td>

@@ -36,7 +36,7 @@
                     <div class="navbar-collapse collapse ">
 
                     <div class="right-div">
-                <a href="index.php" class="btn btn-danger pull-right">แสดงข้อมูลทั้งหมด</a>
+                <a href="index.php" class="btn btn-success pull-right">แสดงข้อมูลทั้งหมด</a>
             </div>
 
                         <ul id="menu-top" class="nav navbar-nav navbar-right">

@@ -2,17 +2,6 @@
 session_start();
 error_reporting(0);
 include('includes/connection.php');
-if(isset($_REQUEST['del']))
-	{
-$delid=intval($_GET['del']);
-$sql = "delete from tblauthor  WHERE  id=:delid";
-$query = $dbh->prepare($sql);
-$query -> bindParam(':delid',$delid, PDO::PARAM_STR);
-$query -> execute();
-$msg="Vehicle  record deleted successfully";
-}
-
-
     ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -34,6 +23,25 @@ $msg="Vehicle  record deleted successfully";
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 
 </head>
+
+<style>
+		.errorWrap {
+    padding: 10px;
+    margin: 0 0 20px 0;
+    background: #fff;
+    border-left: 4px solid #dd3d36;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+.succWrap{
+    padding: 10px;
+    margin: 0 0 20px 0;
+    background: #fff;
+    border-left: 4px solid #5cb85c;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+		</style>
 <body>
       <!------MENU SECTION START-->
 <?php include('includes/header.php');?>
@@ -44,9 +52,13 @@ $msg="Vehicle  record deleted successfully";
             <div class="col-md-12">
                 <h4 class="header-line">Author</h4>
     </div>
-
-
         </div>
+
+        <!-- ALERT START -->
+        <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
+				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
+ <!-- ALERT END -->
+
             <div class="row">
                 <div class="col-md-12">
                     <!-- Advanced Tables -->
@@ -65,7 +77,6 @@ $msg="Vehicle  record deleted successfully";
                                             <th>หน่วยงาน</th>
                                             <th>ผู้บันทึก </th>
                                             <th>วันที่ทำการบันทึก </th>    
-                                            <th>หมายเหตุ </th>    
                                           <!--  <th>RegDate</th>
                                             <th>Author Name</th>
                                             <th>Problem </th>
@@ -92,7 +103,7 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->Agency);?></td>
                                             <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
                                             <td class="center"><?php echo htmlentities($result->RegDate);?></td>
-                                            <td><a href="author.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-times" style="color:#DC143C;"></i></a></td>
+                                        
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      
                                     </tbody>

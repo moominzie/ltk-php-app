@@ -16,16 +16,16 @@ $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-  $msg="Data Upload successfully";
-  header('location:createdata.php');
-  }
-  else 
-  {
-  $error="Something went wrong. Please try again";
-  }
-  
-  }
-  
+  $url ="http://192.168.64.2/LTK/createdata.php";
+  echo "<script>alert('Create Data successfully'); window.location='$url'</script>";
+}
+else 
+{ 
+  $url ="http://192.168.64.2/LTK/createdata.php";
+  echo "<script>alert('Something went wrong. Please try again'); window.location='$url'</script>";
+}
+
+}
 ?>
 
 <html lang="en">
@@ -46,22 +46,7 @@ if($lastInsertId)
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
 </head>
 <style>
-    .errorWrap {
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: #fff;
-    border-left: 4px solid #dd3d36;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
-.succWrap{
-    padding: 10px;
-    margin: 0 0 20px 0;
-    background: #fff;
-    border-left: 4px solid #5cb85c;
-    -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
-}
+
     </style>
 <body>
     <!------MENU SECTION START-->
@@ -74,13 +59,8 @@ if($lastInsertId)
                 <h4 class="header-line" style="font-family: 'Prompt', sans-serif;">Add data</h4>
                 
                             </div>
+
         </div>
-
-                 <!-- ALERT START -->
-                 <?php if($error){?><div class="errorWrap"><strong>ERROR</strong>:<?php echo htmlentities($error); ?> </div><?php } 
-				else if($msg){?><div class="succWrap"><strong>SUCCESS</strong>:<?php echo htmlentities($msg); ?> </div><?php }?>
- <!-- ALERT END -->
-
     <div class="panel panel-default" style="margin-left:20%; margin-right:20%">
         <div class="panel-heading"><b>FORM DATA</b></div>
         <div class="panel-body" style="">     

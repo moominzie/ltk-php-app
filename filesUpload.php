@@ -23,15 +23,16 @@ $query->execute();
 $lastInsertId = $dbh->lastInsertId();
 if($lastInsertId)
 {
-$msg="Files Upload successfully";
-header('location:filesUpload.php');
-}
-else 
-{
-$error="Something went wrong. Please try again";
-}
-
-}
+    $url ="http://192.168.64.2/LTK/filesUpload.php";
+    echo "<script>alert('Create Files successfully'); window.location='$url'</script>";
+  }
+  else 
+  { 
+    $url ="http://192.168.64.2/LTK/filesUpload.php";
+    echo "<script>alert('Something went wrong. Please try again'); window.location='$url'</script>";
+  }
+  
+  }
 
 
 	?>
@@ -55,6 +56,21 @@ $error="Something went wrong. Please try again";
 </head>
 
 <script>
+// function for get author name
+function getAuthor() {
+$("#loaderIcon").show();
+jQuery.ajax({
+url: "get_author.php",
+data:'author='+$("#author").val(),
+type: "POST",
+success:function(data){
+$("#get_author_name").html(data);
+$("#loaderIcon").hide();
+},
+error:function (){}
+});
+}
+
 
 </script> 
 
@@ -110,9 +126,9 @@ $error="Something went wrong. Please try again";
         <label style="font-family: 'K2D', sans-serif;">Select ID ข้อมูลส่วนที่ 1 หรือ Author : </label>
         <!-- END TITLE -->
     <!-- START SELECT CM FORM ID TITLE -->
-    <select class="selectpicker" name="authorform" required>
+    <select class="selectpicker" name="authorform" id="author" onBlur="getAuthor()"  required>
 <option value=""> Select </option>
-<?php $ret="select id from tblauthor";
+<?php $ret="select id,AuthorName from tblauthor";
 $query= $dbh -> prepare($ret);
 //$query->bindParam(':id',$id, PDO::PARAM_STR);
 $query-> execute();
@@ -126,7 +142,13 @@ foreach($results as $result)
 <?php }} ?>
 </select>
  <!-- END SELECT PROBLEM TITLE -->
-
+ <div class="col-md-12">    
+ <div class="form-group">
+<label for=""style="font-family: 'K2D', sans-serif; color:red;"></label> ตรวจสอบชื่อ : 
+<span id="get_author_name" style=""></span> 
+</div>
+</div>
+<!-- END SHOW AGENCY-->
 
 <!-- START TITLE -->             
     <div class="form-group">
