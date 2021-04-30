@@ -94,8 +94,7 @@ $msg="Glass size delete completed";
                                             <th>รูปที่ 1 </th>
                                             <th>รูปที่ 2 </th>
                                             <th>ผู้บันทึก </th>
-                                            <th>วันที่ทำการบันทึก </th>    
-                                            <th>หมายเหตุ </th>    
+                                            <th>วันที่ทำการบันทึก </th>   
                                           <!--  <th>RegDate</th>
                                             <th>Author Name</th>
                                             <th>Problem </th>
@@ -127,7 +126,6 @@ foreach($results as $result)
                                             <td class="center"><img src="pic/cm_picture/<?php echo htmlentities($result->Images2);?>" width="80" height="100" style="border:solid 1px #000"></td>
                                             <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
                                             <td class="center"><?php echo htmlentities($result->RegDate);?></td>
-                                            
                                          
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      
