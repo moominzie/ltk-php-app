@@ -2,6 +2,18 @@
 session_start();
 error_reporting(0);
 include('includes/connection.php');
+
+
+if(isset($_GET['del']))
+{
+$id=$_GET['del'];
+$sql = "delete from size  WHERE id=:id";
+$query = $dbh->prepare($sql);
+$query -> bindParam(':id',$id, PDO::PARAM_STR);
+$query -> execute();
+$msg="Glass size delete completed";
+}
+
     ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -115,7 +127,7 @@ foreach($results as $result)
                                             <td class="center"><img src="pic/cm_picture/<?php echo htmlentities($result->Images2);?>" width="80" height="100" style="border:solid 1px #000"></td>
                                             <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
                                             <td class="center"><?php echo htmlentities($result->RegDate);?></td>
-                                            <td><a href="index.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-times" style="color:#DC143C;"></i></a></td>
+                                            
                                          
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      
