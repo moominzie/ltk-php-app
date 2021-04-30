@@ -45,7 +45,7 @@
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="add-author.php"> เพิ่มข้อมูลส่วนที่ 1</a></li>
                                      <li role="presentation"><a role="menuitem" tabindex="-1" href="createdata.php"> เพิ่มข้อมูลส่วนที่ 2 </a></li>
-                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="filesUpload.php"> เพิ่มข้อมูลส่วนที่ 3 </a></li>
+                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="filesUpload.php"> เพิ่มข้อมูลรูปภาพ</a></li>
                                 </ul>
                             </li>
 
@@ -54,7 +54,6 @@
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="author.php"> แสดงข้อมูลส่วนที่ 1 </a></li>
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="data.php"> แสดงข้อมูลส่วนที่ 2 </a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="files.php"> แสดงข้อมูลส่วนที่ 3 </a></li>
                                 </ul>
                             </li>
                         

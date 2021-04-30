@@ -101,7 +101,7 @@ error:function (){}
 <div class="container">
     <div class="row pad-botm">
             <div class="col-md-12">
-                <h4 class="header-line" style="font-family: 'Prompt', sans-serif;">File upload</h4>
+                <h4 class="header-line" style="font-family: 'Prompt', sans-serif;">Images upload</h4>
                 
                             </div>
 
