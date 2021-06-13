@@ -42,8 +42,8 @@ if($lastInsertId){
     $cmimg1=$_FILES["img1"]["name"];
     $cmimg2=$_FILES["img2"]["name"];
 
-    move_uploaded_file($_FILES["img1"]["tmp_name"],"pic/cm_picture/".$_FILES["img1"]["name"]);
-    move_uploaded_file($_FILES["img2"]["tmp_name"],"pic/cm_picture/".$_FILES["img2"]["name"]);
+    move_uploaded_file($_FILES["img1"]["tmp_name"],"TCPDF-main/examples/images/".$_FILES["img1"]["name"]);
+    move_uploaded_file($_FILES["img2"]["tmp_name"],"TCPDF-main/examples/images/".$_FILES["img2"]["name"]);
 
 
     $sql="INSERT INTO file (Images1,Images2,Username) VALUES(:cmimg1,:cmimg2,:username)";

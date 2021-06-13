@@ -2,6 +2,7 @@
 session_start();
 error_reporting(0);
 include('includes/connection.php');
+
     ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -101,7 +102,7 @@ include('includes/connection.php');
                                         </tr>
                                     </thead>
                                     <tbody>
-<?php $sql = "SELECT member.Username,file.Images1,file.Images2,tblauthor.AuthorName,tblauthor.RegDate,corrective_maintenance.Problem,corrective_maintenance.Corrective,corrective_maintenance.Summary FROM member join tblauthor on member.Username=tblauthor.Username join corrective_maintenance on member.Username=corrective_maintenance.Username join file on file.Username=member.Username order by tblauthor.id asc";
+<?php $sql = "SELECT member.Username,file.Images1,file.Images2,tblauthor.AuthorName,tblauthor.Username,corrective_maintenance.RegDate,corrective_maintenance.Problem,corrective_maintenance.Corrective,corrective_maintenance.Summary,corrective_maintenance.id as cid FROM tblauthor join member on member.Username=tblauthor.Username join corrective_maintenance on tblauthor.Username=corrective_maintenance.Username join file on file.Username=tblauthor.Username group by cid";
 $query = $dbh -> prepare($sql);
 $query->execute();
 $results=$query->fetchAll(PDO::FETCH_OBJ);
@@ -115,11 +116,11 @@ foreach($results as $result)
                                             <td class="center"><?php echo htmlentities($result->Problem);?></td>
                                             <td class="center"><?php echo htmlentities($result->Corrective);?></td>
                                             <td class="center"><?php echo htmlentities($result->Summary);?></td>
-                                            <td class="center"><img src="pic/cm_picture/<?php echo htmlentities($result->Images1);?>" width="80" height="100" style="border:solid 1px #000"></td>
-                                            <td class="center"><img src="pic/cm_picture/<?php echo htmlentities($result->Images2);?>" width="80" height="100" style="border:solid 1px #000"></td>
+                                            <td class="center"><img src="TCPDF-main/examples/images<?php echo htmlentities($result->Images1);?>" width="80" height="100" style="border:solid 1px #000"></td>
+                                            <td class="center"><img src="TCPDF-main/examples/images<?php echo htmlentities($result->Images2);?>" width="80" height="100" style="border:solid 1px #000"></td>
                                             <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
                                             <td class="center"><?php echo htmlentities($result->RegDate);?></td>
-                                            <td><a href="all-data.php?del=<?php echo $result->id;?>" onclick="return confirm('Do you want to delete');"><i class="fa fa-times" style="color:#DC143C;"></i></a></td>
+                                            <td><a href="generatepdf.php?generatepdf=<?php echo $result->cid;?>"><i class="fa fa-times" style="color:#DC143C;"></i></a></td>
                                          
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      
