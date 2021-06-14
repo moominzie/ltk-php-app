@@ -67,17 +67,14 @@ class PDF extends TCPDF
                 $this->Cell(1, 1, '', 0, 0);
                 $this->Cell(20,5,$result->RegDate,0, 0,'C');
                 $this->Ln(50);   //font name size style
-                $this->SetFont('thsarabunnew','','16');
-                $this->Cell(5, 1, '', 0, 0);
+
                 $imageFile = K_PATH_IMAGES.$result->Images1;
-                $this->Image($imageFile, 40, 60, 139, '', 'JPG', '','T', false, 300, '', false, false, 0, false, false, false);
-                $this->Ln(50);   //font name size style
-                $this->SetFont('thsarabunnew','','16');
-                $this->Cell(5, 1, '', 0, 0);
+                $this->Image($imageFile, 40, 60, 139, '', 'JPG', '','M', false, 300, 'M', false, false, 0, false, false, false);
                 $imageFile = K_PATH_IMAGES.$result->Images2;
-                $this->Image($imageFile, 40, 170, 139, '', 'JPG', '','T', false, 300, '', false, false, 0, false, false, false);
-                    
-                $this->Ln(120); 
+                $this->Image($imageFile, 40, 170, 139, '', 'JPG', '','M', false, 300, 'M', false, false, 0, false, false, false);
+                $this->Ln(50);   //font name size style
+
+                $this->Ln(50); 
                 $this->Cell(15, 1, '', 0, 0);   
                 $this->SetFont('thsarabunnew','B','16');
                 $this->Cell(100, 5, 'สาเหตุ/ปัญหา', 0, 1, 'L');
@@ -101,7 +98,7 @@ class PDF extends TCPDF
                 $this->SetFont('thsarabunnew','','16');
                 $this->MultiCell(150, 5,$result->Summary, 0,'L',0,1,'','',true);
 
-                $this->Ln(100);   //font name size style
+                $this->Ln(10);   //font name size style
                 $this->SetFont('thsarabunnew','','16');
                 $this->Cell(5, 1, '', 0, 0);
                 $this->Cell(50, 5, 'จึงเรียนมาเพื่อโปรดพิจารณา', 0, 1, 'C');

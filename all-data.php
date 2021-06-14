@@ -120,7 +120,7 @@ foreach($results as $result)
                                             <td class="center"><img src="TCPDF-main/examples/images/<?php echo htmlentities($result->Images2);?>" width="80" height="100" style="border:solid 1px #000"></td>
                                             <td class="center"><?php echo htmlentities($result->AuthorName);?></td>
                                             <td class="center"><?php echo htmlentities($result->RegDate);?></td>
-                                            <td><a href="generatepdf.php?id=<?php echo $result->cid;?>"><i class="fa fa-times" style="color:#DC143C;"></i></a></td>
+                                            <td><a href="generatepdf.php?id=<?php echo $result->cid;?>">ส่งออกเป็น PDF</a></td>
                                          
                                         </tr>
  <?php $cnt=$cnt+1;}} ?>                                      
