@@ -27,33 +27,21 @@ if($lastInsertId){
     $problem=$_POST['problem'];
     $corrective=$_POST['corrective'];
     $summary=$_POST['summary'];
-    $sql="INSERT INTO  corrective_maintenance (Problem,Corrective,Summary,Username) VALUES(:problem,:corrective,:summary,:username)";
+    $cmimg1=$_FILES["img1"]["name"];
+    $cmimg2=$_FILES["img2"]["name"];
+    move_uploaded_file($_FILES["img1"]["tmp_name"],"TCPDF-main/examples/images/".$_FILES["img1"]["name"]);
+    move_uploaded_file($_FILES["img2"]["tmp_name"],"TCPDF-main/examples/images/".$_FILES["img2"]["name"]);
+    $sql="INSERT INTO  corrective_maintenance (Problem,Corrective,Summary,Username,Images1,Images2) VALUES(:problem,:corrective,:summary,:username,:cmimg1,:cmimg2)";
     $query = $dbh->prepare($sql);
     $query->bindParam(':username',$username,PDO::PARAM_STR);
     $query->bindParam(':problem',$problem,PDO::PARAM_STR);
     $query->bindParam(':corrective',$corrective,PDO::PARAM_STR);
     $query->bindParam(':summary',$summary,PDO::PARAM_STR);
-    $query->execute();
-    $lastInsertId = $dbh->lastInsertId();
-    if($lastInsertId){
-
-   
-    $username=$_SESSION['username']; 
-    $cmimg1=$_FILES["img1"]["name"];
-    $cmimg2=$_FILES["img2"]["name"];
-
-    move_uploaded_file($_FILES["img1"]["tmp_name"],"TCPDF-main/examples/images/".$_FILES["img1"]["name"]);
-    move_uploaded_file($_FILES["img2"]["tmp_name"],"TCPDF-main/examples/images/".$_FILES["img2"]["name"]);
-
-
-    $sql="INSERT INTO file (Images1,Images2,Username) VALUES(:cmimg1,:cmimg2,:username)";
-    $query = $dbh->prepare($sql);
-    $query->bindParam(':username',$username,PDO::PARAM_STR);
     $query->bindParam(':cmimg1',$cmimg1,PDO::PARAM_STR);
     $query->bindParam(':cmimg2',$cmimg2,PDO::PARAM_STR);
     $query->execute();
     $_SESSION['complete']="บันทึกข้อมูลสำเร็จ!";
-      }
+      
     }
       else {
         $_SESSION['error']="Something went wrong. Please try again";

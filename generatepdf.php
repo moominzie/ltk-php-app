@@ -32,53 +32,76 @@ class PDF extends TCPDF
         $this->SetFont('thsarabunnew','B','16');
         $this->Ln(2); 
         $this->SetFont('thsarabunnew','B','16');
+
+        $id=intval($_GET['id']);
+        $sql = "SELECT tblauthor.PowerId,tblauthor.InitialsId,tblauthor.Username,corrective_maintenance.id,corrective_maintenance.Username,tblpower.id,tblpower.PowerplantName,tblinitials.id,tblinitials.Initials,tblcm.Agency,tblcm.id from tblauthor join corrective_maintenance on corrective_maintenance.Username=tblauthor.Username join tblpower on tblpower.id=tblauthor.PowerId join tblinitials on tblinitials.id=tblauthor.InitialsId join tblcm on tblcm.id=tblinitials.id where corrective_maintenance.id=:id group by corrective_maintenance.id=:id";
+        $query = $dbh -> prepare($sql);
+        $query-> bindParam(':id', $id, PDO::PARAM_STR);
+        $query->execute();
+        $results=$query->fetchAll(PDO::FETCH_OBJ);
+        $cnt=1;
+        if($query->rowCount() > 0)
+        {
+        foreach($results as $result)
+        {  
+            $this->Cell(30, 1, '', 0, 0);
+            $this->Cell(120, 5, 'Daily Report: '.$result->Initials, 0, 1, 'C');
+            $this->Cell(30, 1, '', 0, 0);
+            $this->Cell(60,5,$result->PowerplantName,0, 0,'C');
+            $this->Cell(1, 1, '', 0, 0);
+            $this->Cell(60, 5,$result->Agency, 0, 0,'C');
+        }
+    }
         
-                $cid=intval($_GET['cid']);
-                $sql = "SELECT member.Username,file.Images1,file.Images2,tblauthor.AuthorName,tblauthor.Username,tblauthor.PowerId,corrective_maintenance.Problem,corrective_maintenance.Corrective,corrective_maintenance.Summary,corrective_maintenance.id as cid,tblpower.id,tblpower.PowerplantName,tblinitials.id,tblinitials.initials,tblinitials.AgencyId,tblcm.id,tblcm.Agency,corrective_maintenance.RegDate FROM tblauthor join member on member.Username=tblauthor.Username join corrective_maintenance on tblauthor.Username=corrective_maintenance.Username join file on file.Username=tblauthor.Username join tblpower on tblpower.id=tblauthor.PowerId join tblinitials on tblinitials.id=tblauthor.InitialsId join tblcm on tblinitials.AgencyId=tblcm.id group by cid";
+                $id=intval($_GET['id']);
+                $sql = "SELECT member.Username,corrective_maintenance.Images1,corrective_maintenance.Images2,tblauthor.AuthorName,tblauthor.Username,corrective_maintenance.RegDate,corrective_maintenance.Problem,corrective_maintenance.Corrective,corrective_maintenance.Summary,corrective_maintenance.id as cid FROM corrective_maintenance join member on member.Username=corrective_maintenance.Username join tblauthor on tblauthor.Username=corrective_maintenance.Username where corrective_maintenance.id=:id group by corrective_maintenance.id=:id";
                 $query = $dbh -> prepare($sql);
-                $query-> bindParam(':cid', $cid, PDO::PARAM_STR);
+                $query-> bindParam(':id', $id, PDO::PARAM_STR);
                 $query->execute();
                 $results=$query->fetchAll(PDO::FETCH_OBJ);
                 $cnt=1;
                 if($query->rowCount() > 0)
                 {
                 foreach($results as $result)
-                {     
-                $this->Cell(30, 1, '', 0, 0);
-                $this->Cell(120, 5, 'Daily Report: '.$result->initials, 0, 1, 'C');
-                $this->Cell(30, 1, '', 0, 0);
-                $this->Cell(60,5,$result->PowerplantName,0, 0,'C');
-                $this->Cell(1, 1, '', 0, 0);
-                $this->Cell(60, 5,$result->Agency, 0, 0,'C');
+                {  
                 $this->Cell(1, 1, '', 0, 0);
                 $this->Cell(20,5,$result->RegDate,0, 0,'C');
-                
-                $this->Ln(15); 
-                $this->Cell(20, 1, '', 0, 0);   
+                $this->Ln(50);   //font name size style
+                $this->SetFont('thsarabunnew','','16');
+                $this->Cell(5, 1, '', 0, 0);
+                $imageFile = K_PATH_IMAGES.$result->Images1;
+                $this->Image($imageFile, 40, 60, 139, '', 'JPG', '','T', false, 300, '', false, false, 0, false, false, false);
+                $this->Ln(50);   //font name size style
+                $this->SetFont('thsarabunnew','','16');
+                $this->Cell(5, 1, '', 0, 0);
+                $imageFile = K_PATH_IMAGES.$result->Images2;
+                $this->Image($imageFile, 40, 170, 139, '', 'JPG', '','T', false, 300, '', false, false, 0, false, false, false);
+                    
+                $this->Ln(120); 
+                $this->Cell(15, 1, '', 0, 0);   
                 $this->SetFont('thsarabunnew','B','16');
                 $this->Cell(100, 5, 'สาเหตุ/ปัญหา', 0, 1, 'L');
-                $this->Cell(30, 1, '', 0, 0); 
+                $this->Cell(25, 1, '', 0, 0); 
                 $this->SetFont('thsarabunnew','','16');
                 $this->MultiCell(150, 5,$result->Problem, 0,'L',0,1,'','',true);
 
-                $this->Ln(10); 
-                $this->Cell(20, 1, '', 0, 0);  
+                $this->Ln(5); 
+                $this->Cell(15, 1, '', 0, 0);  
                 $this->SetFont('thsarabunnew','B','16'); 
                 $this->Cell(100, 5, 'การแก้ไข', 0, 1, 'L');
-                $this->Cell(30, 1, '', 0, 0); 
+                $this->Cell(25, 1, '', 0, 0); 
                 $this->SetFont('thsarabunnew','','16');
                 $this->MultiCell(150, 5,$result->Corrective, 0,'L',0,1,'','',true);
 
-                $this->Ln(10); 
-                $this->Cell(20, 1, '', 0, 0);  
+                $this->Ln(5); 
+                $this->Cell(15, 1, '', 0, 0);  
                 $this->SetFont('thsarabunnew','B','16'); 
                 $this->Cell(100, 5, 'สรุป', 0, 1, 'L');
-                $this->Cell(30, 1, '', 0, 0); 
+                $this->Cell(25, 1, '', 0, 0); 
                 $this->SetFont('thsarabunnew','','16');
                 $this->MultiCell(150, 5,$result->Summary, 0,'L',0,1,'','',true);
 
-               
-                $this->Ln(50);   //font name size style
+                $this->Ln(100);   //font name size style
                 $this->SetFont('thsarabunnew','','16');
                 $this->Cell(5, 1, '', 0, 0);
                 $this->Cell(50, 5, 'จึงเรียนมาเพื่อโปรดพิจารณา', 0, 1, 'C');
@@ -87,7 +110,7 @@ class PDF extends TCPDF
                 $this->SetFont('thsarabunnew','B','16');
                 $this->Cell(89, 1, '', 0, 0);
                 $this->Cell(100, 5, $result->AuthorName, 0, 1, 'C');
-                
+
 
                 }
             }
