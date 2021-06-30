@@ -233,7 +233,7 @@ foreach($results as $result)
 </div>  
 </div>  
  <!-- END SELECT PROBLEM TITLE -->
- 
+ <!-- >
  <div class="col-md-12">    
  <div class="form-group">
 <label for=""style="font-family: 'K2D', sans-serif; color:red;"></label> โรงไฟฟ้า : 
@@ -241,6 +241,7 @@ foreach($results as $result)
 </div>
 </div>
 <!-- END SHOW AGENCY-->
+<!-->
 
    <!-- START TITLE -->    
    <div class="col-md-12">         
@@ -265,13 +266,17 @@ foreach($results as $result)
 </select>
 </div>
 </div>
-
  <!-- END SELECT PROBLEM TITLE -->
- <div class="col-md-12">    
+
+<!-- >
+<div class="col-md-12">    
  <div class="form-group">
 <label for="cmwork"style="font-family: 'K2D', sans-serif; color:red;"></label> หน่วยงาน : 
 <span id="get_agency_name" style=""></span> 
+<!-->
 
+<div class="col-md-12">   
+<div class="form-group"> 
         <div class="form-group">
         <label for="branch" style="font-family: 'K2D', sans-serif;">สาเหตุ/ปัญหา </label>
         <textarea type="text" class="form-control" value="" name="problem" autocomplete="off" required></textarea>
